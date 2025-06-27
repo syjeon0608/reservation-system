@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  mysql-local:
+    image: mysql:8
+    container_name: mysql-local
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rvsystem_local
+    volumes:
+      - mysql-local-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  mysql-local-data:

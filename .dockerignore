@@ -1,0 +1,22 @@
+# 빌드 결과물 제외 (단, 필요한 JAR만 복사하자)
+build/
+.gradle/
+!build/libs/rvsystem-0.0.1-SNAPSHOT.jar
+
+# IDE 설정
+.idea/
+*.iml
+*.log
+
+# 환경 변수
+.env
+.env.*
+
+# Git 관련
+.git/
+.gitignore
+
+# 테스트 리포트, 백업 등
+*.bak
+*.swp
+

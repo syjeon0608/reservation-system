@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/rvsystem_local
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver

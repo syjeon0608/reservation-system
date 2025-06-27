@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  mysql-dev:
+    image: mysql:8
+    container_name: ${MYSQL_CONTAINER_NAME}
+    ports:
+      - "${MYSQL_PORT_OUT}:${MYSQL_PORT_IN}"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+    volumes:
+      - mysql-dev-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${APP_CONTAINER_NAME}
+    depends_on:
+      mysql-dev:
+        condition: service_healthy
+    ports:
+      - "${APP_PORT_OUT}:${APP_PORT_IN}"
+    env_file:
+      - .env.dev
+    command: ["java", "-jar", "app.jar","--spring.profiles.active=${SPRING_PROFILE}"]
+
+volumes:
+  mysql-dev-data:

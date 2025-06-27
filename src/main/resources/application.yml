@@ -1,0 +1,3 @@
+spring:
+  profiles:
+    active: local   # 기본 프로필(local) 설정. Docker 실행 시 --spring.profiles.active 로 오버라이드됨
